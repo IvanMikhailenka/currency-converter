@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangerateRequest {
+public class ExchangerateRateInfo {
 
-    private String from;
-    private String to;
-    private Double amount;
+    private Double rate;
 
 }

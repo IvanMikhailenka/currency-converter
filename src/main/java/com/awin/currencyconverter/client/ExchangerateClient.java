@@ -15,15 +15,20 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 public class ExchangerateClient {
 
     //todo: move to .yaml -> param class
-    public static final String HTTPS_API_EXCHANGERATE_HOST_LATEST = "https://api.exchangerate.host/latest";
+    public static final String HTTPS_API_EXCHANGERATE_HOST_LATEST = "https://api.exchangerate.host/convert";
     private final RestTemplate restTemplate;
 
     public ExchangerateResponse getConversionRate(ExchangerateRequest request) {
-        var url = fromUriString(HTTPS_API_EXCHANGERATE_HOST_LATEST)
-                .queryParam("base", request.getBase())
-                .queryParam("symbols", request.getTarget())
-                .toUriString();
+        String url = buildConvertUrl(request);
         return restTemplate.getForEntity(url, ExchangerateResponse.class).getBody();
+    }
+
+    private static String buildConvertUrl(ExchangerateRequest request) {
+        return fromUriString(HTTPS_API_EXCHANGERATE_HOST_LATEST)
+                .queryParam("from", request.getFrom())
+                .queryParam("to", request.getTo())
+                .queryParam("amount", request.getAmount())
+                .toUriString();
     }
 
 }

@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Map;
 
 @Data
 @Builder
@@ -14,8 +14,8 @@ import java.util.Map;
 @NoArgsConstructor
 public class ExchangerateResponse {
 
-    private String base;
-    private Map<String, Double> rates;
+    private BigDecimal result;
+    private ExchangerateRateInfo info;//todo: do we need it?
     private Calendar date;//todo: do we need it?
     private Boolean success;//todo: do we need it?
 

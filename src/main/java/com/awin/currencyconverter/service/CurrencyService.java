@@ -1,7 +1,9 @@
 package com.awin.currencyconverter.service;
 
+import com.awin.currencyconverter.contract.CurrencyConvertResponse;
+
 public interface CurrencyService {
 
-    double convert(String source, String target, double amount);
+    CurrencyConvertResponse convert(String source, String target, double amount);
 
 }

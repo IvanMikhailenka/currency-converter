@@ -26,8 +26,8 @@ public class ExchangerateClientTest {
     @Test
     public void Should_CallForExchangerateResponse_When_ExchangerateRequestProvided() {
         // given
-        var request = new ExchangerateRequest("EUR", "USD");
-        var apiUrl = "https://api.exchangerate.host/latest?base=EUR&symbols=USD";
+        var request = new ExchangerateRequest("EUR", "USD", 10d);
+        var apiUrl = "https://api.exchangerate.host/convert?from=EUR&to=USD&amount=10.0";
         var expectedResponse = new ExchangerateResponse();
         var responseEntity = new ResponseEntity<>(expectedResponse, HttpStatus.OK);
 

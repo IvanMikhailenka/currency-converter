@@ -1,5 +1,6 @@
 package com.awin.currencyconverter.controller;
 
+import com.awin.currencyconverter.contract.CurrencyConvertResponse;
 import com.awin.currencyconverter.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +18,10 @@ public class CurrencyController {
 
     private final CurrencyService currencyService;
 
-    //todo: change double to BigDecimal
+    //todo: add request param object
     //todo: add validation (source, target should be valid currency; amount greater then zero)
     @GetMapping(value = "currencies/convert", produces = MediaType.APPLICATION_JSON_VALUE)
-    public double convert(
+    public CurrencyConvertResponse convert(
             @RequestParam("source") String source,
             @RequestParam("target") String target,
             @RequestParam("amount") double amount) {
