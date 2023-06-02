@@ -23,6 +23,7 @@ public class ExchangerateClient {
         return restTemplate.getForEntity(url, ExchangerateResponse.class).getBody();
     }
 
+    //todo: move it to mapstruct
     private static String buildConvertUrl(ExchangerateRequest request) {
         return fromUriString(HTTPS_API_EXCHANGERATE_HOST_LATEST)
                 .queryParam("from", request.getFrom())
