@@ -1,6 +1,7 @@
 package com.awin.currencyconverter.service;
 
 import com.awin.currencyconverter.client.ExchangerateClient;
+import com.awin.currencyconverter.contract.ConversionRequest;
 import com.awin.currencyconverter.contract.CurrencyConvertResponse;
 import com.awin.currencyconverter.dto.ExchangerateRequest;
 import com.awin.currencyconverter.dto.ExchangerateResponse;
@@ -30,10 +31,16 @@ class CurrencyExchangeRateServiceTest {
         //given
         var source = "EUR";
         var target = "USD";
+        double amount = 10d;
+        ConversionRequest conversionRequest = ConversionRequest.builder()
+                .source(source)
+                .target(target)
+                .amount(amount)
+                .build();
         var exchangerateRequest = ExchangerateRequest.builder()
                 .from(source)
                 .to(target)
-                .amount(10d)
+                .amount(amount)
                 .build();
         var exchangerateResponse = ExchangerateResponse.builder()
                 .result(valueOf(123d))
@@ -42,7 +49,7 @@ class CurrencyExchangeRateServiceTest {
         //when
         when(exchangerateClient.getConversionRate(exchangerateRequest)).thenReturn(exchangerateResponse);
 
-        var result = service.convert(source, target, 10d);
+        var result = service.convert(conversionRequest);
         //then
         assertEquals(result, expectedResult);
     }
