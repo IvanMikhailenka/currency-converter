@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ValidationException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,25 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                         .status(ex.getStatus())
                         .message(ex.getMessage())
                         .details(ex.getDetails())
+                        .timestamp(Instant.now())
+                        .build());
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    protected ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex) {
+        if (ex.getCause() instanceof ConverterApplicationException) {
+            return handleConverterApplicationException((ConverterApplicationException) ex.getCause());
+        }
+        if (ex.getCause() instanceof Exception) {
+            return handleException((Exception) ex.getCause());
+        }
+        return ResponseEntity
+                .status(INTERNAL_SERVER_ERROR)
+                .body(ErrorResponse.builder()
+                        .status(INTERNAL_SERVER_ERROR.value())
+                        .message(ex.getMessage())
+                        .details(emptyMap())
+                        .timestamp(Instant.now())
                         .build());
     }
 

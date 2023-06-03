@@ -29,7 +29,9 @@ public class CurrencyCodeCache {
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs at midnight (00:00) every day
     @CacheEvict(value = "currencyCodes", allEntries = true)
-    public void evictCurrencyCodesCash() {}
+    public void evictCurrencyCodesCash() {
+        log.info("evict currencyCodes cache");
+    }
 
 
 }

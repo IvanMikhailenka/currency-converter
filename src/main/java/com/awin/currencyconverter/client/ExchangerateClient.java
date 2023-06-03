@@ -1,13 +1,18 @@
 package com.awin.currencyconverter.client;
 
+import com.awin.currencyconverter.configuration.properties.DestinationProperties;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeConversionRateRequest;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeConversionRateResponse;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeCurrencyResponse;
+import com.awin.currencyconverter.exception.ConverterApplicationException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 
@@ -16,20 +21,25 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 @RequiredArgsConstructor
 public class ExchangerateClient {
 
-    //todo: move to .yaml -> param class
-    public static final String API_EXCHANGERATE_LATEST_RATES = "https://api.exchangerate.host/latest";
-    public static final String API_EXCHANGERATE_SYMBOLS = "https://api.exchangerate.host/symbols";
     private final RestTemplate restTemplate;
+    private final DestinationProperties destinationProperties;
 
+    @NonNull
     public ExchangeConversionRateResponse getLatestConversionRates(@NonNull ExchangeConversionRateRequest request) {
-        String url = fromUriString(API_EXCHANGERATE_LATEST_RATES)
+        String url = fromUriString(destinationProperties.getExchangerateLatestRatesUrl())
                 .queryParam("base", request.getBase())
                 .toUriString();
-        return restTemplate.getForEntity(url, ExchangeConversionRateResponse.class).getBody();
+        return Optional.of(restTemplate.getForEntity(url, ExchangeConversionRateResponse.class))
+                .map(HttpEntity::getBody)
+                .orElseThrow(() -> new ConverterApplicationException("Unable to fetch conversion rates"));
     }
 
+    @NonNull
     public ExchangeCurrencyResponse getCurrencyCodes() {
-        return restTemplate.getForEntity(API_EXCHANGERATE_SYMBOLS, ExchangeCurrencyResponse.class).getBody();
+        String url = destinationProperties.getExchangerateCurrencyCodesUrl();
+        return Optional.of(restTemplate.getForEntity(url, ExchangeCurrencyResponse.class))
+                .map(HttpEntity::getBody)
+                .orElseThrow(() -> new ConverterApplicationException("Unable to fetch currency codes"));
     }
 
 }

@@ -6,10 +6,17 @@ logging:
     root: info
     org.springframework.web: debug
     org.springframework.web.client: debug
-    org.springframework.boot.actuate.endpoint.web: info
 
+#todo: do I really need it?
 management:
   endpoints:
     web:
       exposure:
         include: health, metrics
+
+#External service URLs
+destinations:
+  exchangerate:
+    root: https://api.exchangerate.host
+    latest-rates: ${destinations.exchangerate.root}/latest
+    currency-codes: ${destinations.exchangerate.root}/symbols

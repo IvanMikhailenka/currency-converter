@@ -1,13 +1,15 @@
 package com.awin.currencyconverter.exception;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.util.Map;
 
 @Data
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-//todo: use it somewhere
 public class ConverterApplicationException extends RuntimeException {
 
     private String errorId;
@@ -16,21 +18,6 @@ public class ConverterApplicationException extends RuntimeException {
 
     public ConverterApplicationException(String message) {
         super(message);
-    }
-
-    public ConverterApplicationException withStatus(Integer status) {
-        this.status = status;
-        return this;
-    }
-
-    public ConverterApplicationException withErrorId(String errorId) {
-        this.errorId = errorId;
-        return this;
-    }
-
-    public ConverterApplicationException withDetails(Map<String, Object> details) {
-        this.details = details;
-        return this;
     }
 
 }
