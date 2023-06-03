@@ -7,27 +7,28 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CurrencyConverterApplicationException extends RuntimeException {
+//todo: use it somewhere
+public class ConverterApplicationException extends RuntimeException {
 
-    private Integer status;
     private String errorId;
+    private Integer status;
     private Map<String, Object> details;
 
-    public CurrencyConverterApplicationException(String message) {
+    public ConverterApplicationException(String message) {
         super(message);
     }
 
-    public CurrencyConverterApplicationException withStatus(Integer status) {
+    public ConverterApplicationException withStatus(Integer status) {
         this.status = status;
         return this;
     }
 
-    public CurrencyConverterApplicationException withErrorId(String errorId) {
+    public ConverterApplicationException withErrorId(String errorId) {
         this.errorId = errorId;
         return this;
     }
 
-    public CurrencyConverterApplicationException withDetails(Map<String, Object> details) {
+    public ConverterApplicationException withDetails(Map<String, Object> details) {
         this.details = details;
         return this;
     }

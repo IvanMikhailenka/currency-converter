@@ -15,7 +15,8 @@ import java.util.Map;
 @NoArgsConstructor
 public class ErrorResponse {
 
-    private Integer errorCode;
+    private String errorId;
+    private Integer status;
     @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",

@@ -3,6 +3,7 @@ package com.awin.currencyconverter.client;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeConversionRateRequest;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeConversionRateResponse;
 import com.awin.currencyconverter.dto.exchangerate.ExchangeCurrencyResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class ExchangerateClient {
     public static final String API_EXCHANGERATE_SYMBOLS = "https://api.exchangerate.host/symbols";
     private final RestTemplate restTemplate;
 
-    public ExchangeConversionRateResponse getLatestConversionRates(ExchangeConversionRateRequest request) {
+    public ExchangeConversionRateResponse getLatestConversionRates(@NonNull ExchangeConversionRateRequest request) {
         String url = fromUriString(API_EXCHANGERATE_LATEST_RATES)
                 .queryParam("base", request.getBase())
                 .toUriString();
