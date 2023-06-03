@@ -1,7 +1,7 @@
 package com.awin.currencyconverter.cache;
 
 import com.awin.currencyconverter.client.ExchangerateClient;
-import com.awin.currencyconverter.dto.ExchangerateCurrencyResponse;
+import com.awin.currencyconverter.dto.exchangerate.ExchangeCurrencyResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,7 +20,7 @@ public class CurrencyCodeCache {
 
     @Cacheable("currencyCodes")
     public Set<String> getCurrencyCodes() {
-        ExchangerateCurrencyResponse currencyResponse = exchangerateClient.getCurrencyCodes();
+        ExchangeCurrencyResponse currencyResponse = exchangerateClient.getCurrencyCodes();
         return currencyResponse.getSymbols().keySet();
     }
 

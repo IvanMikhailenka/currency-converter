@@ -1,4 +1,4 @@
-package com.awin.currencyconverter.dto;
+package com.awin.currencyconverter.dto.exchangerate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangerateRateInfo {
+public class ExchangeConversionRateRequest {
 
-    private Double rate;
+    private String base;
 
 }

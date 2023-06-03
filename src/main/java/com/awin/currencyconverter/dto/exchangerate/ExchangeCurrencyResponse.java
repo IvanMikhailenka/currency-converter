@@ -1,4 +1,4 @@
-package com.awin.currencyconverter.dto;
+package com.awin.currencyconverter.dto.exchangerate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExchangerateCurrencyResponse {
+public class ExchangeCurrencyResponse {
 
     private Map<String, Object> symbols;
 
