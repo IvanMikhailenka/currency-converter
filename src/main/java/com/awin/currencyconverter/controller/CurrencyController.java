@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @Slf4j
 @RestController
@@ -20,9 +22,8 @@ public class CurrencyController {
 
     private final CurrencyService currencyService;
 
-    //todo: add validation (source, target should be valid currency; amount greater then zero)
     @GetMapping(value = "/convert")
-    public CurrencyConvertResponse convert(@ModelAttribute ConversionRequest request) {
+    public CurrencyConvertResponse convert(@Valid @ModelAttribute ConversionRequest request) {
         return currencyService.convert(request);
     }
 

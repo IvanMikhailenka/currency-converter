@@ -3,7 +3,7 @@ package com.awin.currencyconverter.service;
 import com.awin.currencyconverter.client.ExchangerateClient;
 import com.awin.currencyconverter.contract.ConversionRequest;
 import com.awin.currencyconverter.contract.CurrencyConvertResponse;
-import com.awin.currencyconverter.dto.ExchangerateRequest;
+import com.awin.currencyconverter.dto.ExchangerateConvertRequest;
 import com.awin.currencyconverter.dto.ExchangerateResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 import static java.math.BigDecimal.valueOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,13 +30,13 @@ class CurrencyExchangeRateServiceTest {
         //given
         var source = "EUR";
         var target = "USD";
-        double amount = 10d;
+        BigDecimal amount = valueOf(10d);
         ConversionRequest conversionRequest = ConversionRequest.builder()
                 .source(source)
                 .target(target)
                 .amount(amount)
                 .build();
-        var exchangerateRequest = ExchangerateRequest.builder()
+        var exchangerateRequest = ExchangerateConvertRequest.builder()
                 .from(source)
                 .to(target)
                 .amount(amount)
