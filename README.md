@@ -8,11 +8,6 @@ Currency Converter is a small helper app designed to perform currency exchange r
 - Convert currency from one to another with a provided amount
 - Utilizes real-time exchange rates for accurate conversions
 
-## Technologies Used
-
-- Java 11
-- Spring Boot
-
 ## Installation
 
 To set up the Currency Converter project, follow these steps:
@@ -33,9 +28,8 @@ To set up the Currency Converter project, follow these steps:
 
 To use the Currency Converter app, follow these steps:
 
-1. Open your preferred web browser.
-2. Navigate to [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to access the Swagger UI.
-3. Use the provided endpoints to convert currencies by providing the required input.
+1. Navigate to [http://ec2-44-193-117-151.compute-1.amazonaws.com](http://ec2-44-193-117-151.compute-1.amazonaws.com) to access the Swagger UI.
+2. Use the provided endpoints to convert currencies by providing the required input.
 
 ## Future Plans
 
