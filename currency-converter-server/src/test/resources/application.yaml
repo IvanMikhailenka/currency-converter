@@ -1,0 +1,6 @@
+#External service URLs
+destinations:
+  exchangerate:
+    root: https://test.host
+    latest-rates: ${destinations.exchangerate.root}/latest
+    currency-codes: ${destinations.exchangerate.root}/symbols

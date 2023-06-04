@@ -1,0 +1,9 @@
+{
+  "status": 400,
+  "message": "Validation Exception",
+  "details": {
+    "info": [
+      "amount -> must be greater than 0"
+    ]
+  }
+}
