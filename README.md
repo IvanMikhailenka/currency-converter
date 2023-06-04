@@ -21,7 +21,7 @@ To set up the Currency Converter project, follow these steps:
 2. Open a terminal and navigate to the project directory.
 3. Run the following command to start the application using Maven Wrapper:
 
-   `./mvnw spring-boot:run`
+   `cd currency-converter-server/ && ../mvnw spring-boot:run`
 
     Alternatively, you can build a Docker image and run it:
 

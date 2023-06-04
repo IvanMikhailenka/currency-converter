@@ -20,7 +20,8 @@ pipeline {
                 sh './mvnw package -DskipTests'
 
                 // Archive the JAR file as an artifact
-                archiveArtifacts artifacts: 'target/currency-converter-*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'currency-converter-contract/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'currency-converter-server/target/*.jar', fingerprint: true
             }
         }
         stage('Push to artifactory'){

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+//todo: move to contract package
 public class ConversionRequest {
 
     @NotNull
