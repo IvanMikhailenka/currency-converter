@@ -1,58 +1,61 @@
 package com.awin.currencyconverter.controller;
 
-import com.awin.currencyconverter.cache.CurrencyCodeCache;
-import com.awin.currencyconverter.contract.ConversionRequest;
-import com.awin.currencyconverter.contract.CurrencyConvertResponse;
-import com.awin.currencyconverter.service.CurrencyService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.awin.currencyconverter.dto.exchangerate.ExchangeConversionRateResponse;
+import com.awin.currencyconverter.dto.exchangerate.ExchangeCurrencyResponse;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
+import static java.math.BigDecimal.valueOf;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(CurrencyController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class CurrencyControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
-    private CurrencyService currencyService;
-    @MockBean
-    private CurrencyCodeCache currencyCodeCache;
+    private RestTemplate restTemplate;
 
     @BeforeEach
     public void setUp() {
-        when(currencyCodeCache.getCurrencyCodes()).thenReturn(new HashSet<>(Set.of("EUR", "USD")));
+        var currencyResponse = new ExchangeCurrencyResponse(new HashMap<>(Map.of("EUR", "", "USD", "")));
+        var currencyEntity = new ResponseEntity<>(currencyResponse, HttpStatus.OK);
+        when(restTemplate.getForEntity(anyString(), eq(ExchangeCurrencyResponse.class))).thenReturn(currencyEntity);
     }
 
     static Stream<Arguments> successfulConversionTestData() {
         return Stream.of(
-                Arguments.of("EUR", "USD", "100", "118.0", "{\"value\":118.0}"),
-                Arguments.of("USD", "EUR", "100", "84.75", "{\"value\":84.75}")
+                Arguments.of("EUR", "USD", "100", valueOf(1.180), "{\"value\":118.0}"),
+                Arguments.of("USD", "EUR", "100", valueOf(0.8475), "{\"value\":84.75}")
         );
     }
 
@@ -60,18 +63,13 @@ class CurrencyControllerTest {
     @ParameterizedTest
     @MethodSource("successfulConversionTestData")
     public void should_convert_source_to_target_with_rate_provided(String source,
-                                      String target,
-                                      String amount,
-                                      String returnValue,
-                                      String expectedResponseBody) {
-        var request = ConversionRequest.builder()
-                .source(source)
-                .target(target)
-                .amount(new BigDecimal(amount))
-                .build();
-        var response = new CurrencyConvertResponse(new BigDecimal(returnValue));
-
-        when(currencyService.convert(request)).thenReturn(response);
+                                                                   String target,
+                                                                   String amount,
+                                                                   BigDecimal rate,
+                                                                   String expectedResponseBody) {
+        var rateResponse = new ExchangeConversionRateResponse(target, Map.of(target, rate));
+        var rateEntity = new ResponseEntity<>(rateResponse, HttpStatus.OK);
+        when(restTemplate.getForEntity(anyString(), eq(ExchangeConversionRateResponse.class))).thenReturn(rateEntity);
 
         mockMvc.perform(get("/currencies/convert")
                         .param("source", source)

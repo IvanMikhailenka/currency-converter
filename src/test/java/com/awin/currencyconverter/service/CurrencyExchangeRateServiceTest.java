@@ -25,10 +25,10 @@ class CurrencyExchangeRateServiceTest {
     @Mock
     private ConversionRatesCache conversionRatesCache;
     @InjectMocks
-    CurrencyExchangeRateService service;
+    private CurrencyExchangeRateService service;
 
     @Test
-    void Should_CalculateConversionResult_When_SourceTargetAmountProvided() {
+    void should_CalculateConversionResult_when_SourceTargetAmountProvided() {
         //given
         var conversionRequest = getConversionRequest();
         var conversionRateResponse = getConversionRateResponse();
