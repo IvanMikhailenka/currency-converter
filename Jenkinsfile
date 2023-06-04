@@ -84,7 +84,7 @@ pipeline {
                                 docker stop $DOCKER_PROJECT
                                 docker rm $DOCKER_PROJECT
                             fi
-                            docker run -d -p 8080:8080 --name $DOCKER_PROJECT $DOCKER_USER/$DOCKER_PROJECT
+                            docker run -d -p 80:8080 --name $DOCKER_PROJECT $DOCKER_USER/$DOCKER_PROJECT
                         << EOF
                         """
                     }
