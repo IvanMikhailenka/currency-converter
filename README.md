@@ -1,25 +1,54 @@
-<h3>Currency Converter (Coding Test - Software Engineer)</h3>
-
-This exercise focuses on functionality, "clear code" and how well the application is tested.
-
-Imagine you are part of the engineering team at AWIN which is responsible for Finance topics
-(e.g. invoicing advertisers and paying publishers. For the sake of this exercise, let's assume that AWIN only operates
-with Euro as a currency within the EU, we don't - but let's assume).
-
-There are plans to expand into additional markets outside of the EUR zone. For this, your team has received a request to
-build a small helper app to perform currency exchange rate conversions. This is the starting point for adding currency
-conversion functionality to the entire platform later on and allowing the business to expand into new regions.
-
-Your task is to complete a concept for a currency conversion solution and to implement a small but key part of the
-application including some tests.
-
-For getting actual the conversion rates, assume you would use this service: https://exchangerate.host/
-(request sample: `https://api.exchangerate.host/latest?base=EUR&symbols=AUD,CAD,CHF,CNY,GBP,JPY,USD`)
-
-Tasks:
- * Implement 'CurrencyExchangeRateService' (please use this https://exchangerate.host as back-end service)
- * Write at least on test case (or as many as you think necessary)
- * Please introduce any change to any existing class if you think it improves the solution
+# Currency Converter
 
 
-Good luck!
+Currency Converter is a small helper app designed to perform currency exchange rate conversions. It serves as a starting point for adding currency conversion functionality to the entire platform, enabling the business to expand into new regions.
+
+## Key Features
+
+- Convert currency from one to another with a provided amount
+- Utilizes real-time exchange rates for accurate conversions
+
+## Technologies Used
+
+- Java 11
+- Spring Boot
+
+## Installation
+
+To set up the Currency Converter project, follow these steps:
+
+1. Clone the repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Run the following command to start the application using Maven Wrapper:
+
+   `./mvnw spring-boot:run`
+
+    Alternatively, you can build a Docker image and run it:
+
+    `./mvnw clean package && docker build -t currency-converter . && docker run -p 8080:8080 --name currency-converter currency-converter`
+
+4. The application will be accessible at [http://localhost:8080](http://localhost:8080).
+
+## Usage
+
+To use the Currency Converter app, follow these steps:
+
+1. Open your preferred web browser.
+2. Navigate to [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to access the Swagger UI.
+3. Use the provided endpoints to convert currencies by providing the required input.
+
+## Future Plans
+
+In the future, we have the following plans for the Currency Converter project:
+
+- Add authentication functionality to secure sensitive operations.
+- Implement Wiremock for integration tests to ensure reliable and accurate currency conversion.
+
+
+## Acknowledgments
+
+We would like to acknowledge the following resources for their contributions to this project:
+
+- [ExchangeRate API](https://exchangerate.host/) - Provides real-time exchange rate data for accurate currency conversions.
+- [OpenAPI + Swagger](https://swagger.io) - Used for API documentation and exploration.
+
