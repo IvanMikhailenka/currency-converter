@@ -1,0 +1,10 @@
+{
+  "status": 400,
+  "message": "Validation Exception",
+  "details": {
+    "info": [
+      "target -> invalid currency code",
+      "target -> must not be null"
+    ]
+  }
+}
