@@ -1,6 +1,5 @@
 # Currency Converter
 
-
 Currency Converter is a small helper app designed to perform currency exchange rate conversions. It serves as a starting point for adding currency conversion functionality to the entire platform, enabling the business to expand into new regions.
 
 ## Key Features
